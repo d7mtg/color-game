@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600&display=swap" rel="stylesheet">
+<head>
+    <meta charset="UTF-8"><meta name="theme-color" content="rgb(230, 230, 230)">
+	<link href="../../../photos/favicon.png" rel="shortcut icon" type="image/png">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=0.8">
+	<script>
+    (function(h, o, t, j, a, r) {
+        h.hj = h.hj || function() {
+            (h.hj.q = h.hj.q || []).push(arguments)
+        };
+        h._hjSettings = {
+            hjid: 1812116,
+            hjsv: 6
+        };
+        a = o.getElementsByTagName('head')[0];
+        r = o.createElement('script');
+        r.async = 1;
+        r.src = t + h._hjSettings.hjid + j + h._hjSettings.hjsv;
+        a.appendChild(r);
+    })(window, document, 'https://static.hotjar.com/c/hotjar-', '.js?sv=');
+    </script>
+    <title>Color Game</title>
+    <style>
+        h1{
+            text-align: center;
+            background-color: rgb(230, 230, 230);
+            margin-bottom: 40px;
+            padding: 25px;
+        }
+        #colorCode{
+            border: 5px solid black;
+            text-align: center;
+            font-size: 2em;
+            display: block;
+            width: 300px;
+            margin-left: auto;
+            margin-right: auto;
+            padding: 25px;
+            background-color: rgb(235, 235, 235);
+            border-radius: 10px;
+            text-transform: uppercase;
+            margin-bottom: 40px;
+        }
+        #colorsdiv{
+            width: fit-content;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .colorbox{
+            cursor: pointer;
+            height: 100px;
+            width: 100px;
+            margin: 25px;
+            display: inline-block;
+            border-radius: 10px;
+            transition: all .1s ease-in;
+            text-align: center;
+            line-height: 100px;
+            color: white;
+            }
+        .colorbox:hover{
+            transform: scale(1.1);
+        }
+        .colorbox:active{
+            transform: scale(1.04);
+        }
+        #score{
+            position: absolute;
+            bottom: 0px;
+            right: 0px;
+            padding: 25px;
+            margin: 25px;
+            color: white;
+            text-align: right;
+            background-color: blue;
+            border-radius: 10px;
+        }
+        #scorediv{
+            position: absolute;
+            bottom: 0px;
+            left: 0px;
+            padding: 25px;
+            margin: 25px;
+            color: white;
+            text-align: left;
+            background-color: blue;
+            border-radius: 10px;
+        }
+        #current{
+            position: block;
+            bottom: 0px;
+            margin: auto;
+            width: 100px;
+            padding: 25px;
+            color: white;
+            text-align: center;
+            border-radius: 10px;
+        }
+        * {
+            transition: .1s linear;
+            margin: 0px;
+            padding: 0px;
+            font-family: 'Montserrat', sans-serif;
+    user-select: none; /* supported by Chrome and Opera */
+   -webkit-user-select: none; /* Safari */
+   -khtml-user-select: none; /* Konqueror HTML */
+   -moz-user-select: none; /* Firefox */
+   -ms-user-select: none; /* Internet Explorer/Edge */
+}
+    </style>
+</head>
+<body>
+    <h1>Choose the right color for this Hex code!</h1>
+    <p id="colorCode">#FFFFFF</p>
+    <div id="colorsdiv">
+        <div class="colorbox">1</div>
+        <div class="colorbox">2</div>
+        <div class="colorbox">3</div>
+    </div>
+    <div id="score">Score: 0%</div>
+    <div id="scorediv">
+        <div id="totalcount">Total: 0</div>
+        <div id="rightcount">Right: 0</div>
+        <div id="wrongcount">Wrong: 0</div>
+    </div>
+    <div id="current"></div>
+</body>
+<script>
+let correctColor, colorA, colorB, a,b,c, arr, colorboxes, scorenumber, total;
+let right = 0;
+let wrong = 0;
+let rgbmode = true;
+var wrongcount = document.getElementById("wrongcount");
+var rightcount = document.getElementById("rightcount");
+var totalcount = document.getElementById("totalcount");
+var colorCode = document.getElementById("colorCode");
+var score = document.getElementById("score");
+colorboxes = document.getElementsByClassName("colorbox");
+document.body.onload = generateColor;
+var current = document.getElementById("current");
+function generateColor(){
+    arr = [0,1,2];
+    arr = arr.sort(() => Math.random() - 0.5);
+    correctColor = '#'+('00000'+(Math.random()*(1<<24)|0).toString(16)).slice(-6);
+    current.style.backgroundColor = "white";
+    colorboxes[arr[0]].style.backgroundColor = '#'+('00000'+(Math.random()*(1<<24)|0).toString(16)).slice(-6);
+    colorboxes[arr[1]].style.backgroundColor = '#'+('00000'+(Math.random()*(1<<24)|0).toString(16)).slice(-6);
+    colorboxes[arr[2]].style.backgroundColor = correctColor;
+    colorboxes[arr[2]].id = "correct";
+    document.getElementById("correct").style.boxShadow = "0 0 0px 0px rgba(0,0,0,0)";
+    if (rgbmode) {
+        document.getElementById("colorCode").innerHTML =
+        "<span style='color:black'>" + correctColor.substring(0, 1) + "</span>" +
+        "<span style='color:red'>" + correctColor.substring(1, 3) + "</span>"+
+        "<span style='color:green'>" + correctColor.substring(3, 5) + "</span>"+
+        "<span style='color:blue'>" + correctColor.substring(5, 7) + "</span>";
+    } else {
+        document.getElementById("colorCode").innerHTML = correctColor;
+    }
+}
+function togglergb(){
+    rgbmode = !rgbmode
+}
+var check = function() {
+if (this.id === "correct"){
+    current.style.backgroundColor = "rgb(28, 189, 28)";
+    current.innerText = "Correct!";
+    right++;
+    rightcount.innerText = "Right: " + right;
+} else {
+    current.style.backgroundColor = "rgba(255, 0, 0, 1)";
+    current.innerText = "Wrong!";
+    wrong++;
+    wrongcount.innerText = "Wrong: " + wrong;
+};
+if (right > wrong){
+    document.getElementById("scorediv").style.backgroundColor = "rgb(28, 189, 28)";
+    document.getElementById("score").style.backgroundColor = "rgb(28, 189, 28)";
+} else if (wrong > right) {
+    document.getElementById("scorediv").style.backgroundColor = "red";
+    document.getElementById("score").style.backgroundColor = "red";
+} else {
+    document.getElementById("scorediv").style.backgroundColor = "blue";
+    document.getElementById("score").style.backgroundColor = "blue";
+}
+scorenumber = right / (right+wrong) *  100 / 1000 * 1000;
+score.innerText = "Score: " + Math.trunc(scorenumber) + "%";
+total = right + wrong;
+totalcount.innerText = "Total: " + total;
+colorboxes[arr[1]].removeAttribute('id');
+colorboxes[arr[0]].removeAttribute('id');
+colorboxes[arr[2]].removeAttribute('id');
+setTimeout(generateColor, 300);
+}
+for (var i = 0; i < colorboxes.length; i++) {
+    colorboxes[i].addEventListener('click', check, false);
+}
+document.body.addEventListener("keyup", function(event) {
+    if (event.keyCode === 49) {
+        event.preventDefault();
+        colorboxes[0].click()
+    } else if (event.keyCode === 50) {
+        event.preventDefault();
+        colorboxes[1].click()
+    } else if (event.keyCode === 51) {
+        event.preventDefault();
+        colorboxes[2].click()
+    }
+})
+</script>
+</html>
