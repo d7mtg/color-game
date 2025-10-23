@@ -6,17 +6,8 @@ const gameState = {
     correctIndex: null
 };
 
-// DOM elements
-const elements = {
-    colorCode: document.getElementById('colorCode'),
-    colorboxes: document.getElementsByClassName('colorbox'),
-    current: document.getElementById('current'),
-    score: document.getElementById('score'),
-    rightcount: document.getElementById('rightcount'),
-    wrongcount: document.getElementById('wrongcount'),
-    totalcount: document.getElementById('totalcount'),
-    scoreDiv: document.getElementById('scorediv')
-};
+// DOM elements - will be initialized after DOM loads
+let elements = {};
 
 // Utility functions
 const generateRandomColor = () => {
@@ -140,6 +131,18 @@ const toggleRgbMode = () => {
 
 // Initialize game
 const init = () => {
+    // Initialize DOM elements after page loads
+    elements = {
+        colorCode: document.getElementById('colorCode'),
+        colorboxes: document.getElementsByClassName('colorbox'),
+        current: document.getElementById('current'),
+        score: document.getElementById('score'),
+        rightcount: document.getElementById('rightcount'),
+        wrongcount: document.getElementById('wrongcount'),
+        totalcount: document.getElementById('totalcount'),
+        scoreDiv: document.getElementById('scorediv')
+    };
+
     // Add click listeners to color boxes
     Array.from(elements.colorboxes).forEach(box => {
         box.addEventListener('click', handleColorClick);
