@@ -154,9 +154,5 @@ const init = () => {
     generateColor();
 };
 
-// Start game when DOM is loaded
-if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', init);
-} else {
-    init();
-}
+// Start game when page loads
+window.addEventListener('load', init);
