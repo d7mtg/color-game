@@ -3,15 +3,40 @@ const gameState = {
     right: 0,
     wrong: 0,
     rgbMode: true,
-    correctIndex: null
+    correctIndex: null,
+    totalQuestions: 0
 };
 
 // DOM elements - will be initialized after DOM loads
 let elements = {};
 
+// Easy starting colors for beginners
+const easyColors = [
+    '#FF0000', // Pure red
+    '#00FF00', // Pure green
+    '#0000FF', // Pure blue
+    '#FFFF00', // Yellow
+    '#FF00FF', // Magenta
+    '#00FFFF', // Cyan
+    '#FFFFFF', // White
+    '#000000', // Black
+    '#808080', // Gray
+    '#FF8000', // Orange
+    '#8000FF', // Purple
+];
+
 // Utility functions
 const generateRandomColor = () => {
-    return '#' + ('00000' + ((Math.random() * (1 << 24)) | 0).toString(16)).slice(-6);
+    return '#' + ('00000' + ((Math.random() * (1 << 24)) | 0).toString(16)).slice(-6).toUpperCase();
+};
+
+const getColorForQuestion = (questionNumber) => {
+    // First 11 questions use easy colors
+    if (questionNumber < easyColors.length) {
+        return easyColors[questionNumber];
+    }
+    // After that, use random colors
+    return generateRandomColor();
 };
 
 const shuffleArray = (array) => {
@@ -23,10 +48,27 @@ const formatColorCode = (color, rgbMode) => {
         return color;
     }
 
+    // Extract RGB components and show them with intensity-based shading
+    const redHex = color.substring(1, 3);
+    const greenHex = color.substring(3, 5);
+    const blueHex = color.substring(5, 7);
+
+    // Convert hex to decimal for intensity (0-255)
+    const redValue = parseInt(redHex, 16);
+    const greenValue = parseInt(greenHex, 16);
+    const blueValue = parseInt(blueHex, 16);
+
+    // Create RGB colors with proper intensity
+    // Add minimum brightness so dark values are still visible
+    const minBright = 100;
+    const redColor = `rgb(${Math.max(redValue, minBright)}, 0, 0)`;
+    const greenColor = `rgb(0, ${Math.max(greenValue, minBright)}, 0)`;
+    const blueColor = `rgb(0, 0, ${Math.max(blueValue, minBright)})`;
+
     return `<span style='color:white'>${color.substring(0, 1)}</span>` +
-           `<span style='color:#ff6b6b'>${color.substring(1, 3)}</span>` +
-           `<span style='color:#51cf66'>${color.substring(3, 5)}</span>` +
-           `<span style='color:#339af0'>${color.substring(5, 7)}</span>`;
+           `<span style='color:${redColor}; font-weight: ${redValue > 128 ? 'bold' : 'normal'}'>${redHex}</span>` +
+           `<span style='color:${greenColor}; font-weight: ${greenValue > 128 ? 'bold' : 'normal'}'>${greenHex}</span>` +
+           `<span style='color:${blueColor}; font-weight: ${blueValue > 128 ? 'bold' : 'normal'}'>${blueHex}</span>`;
 };
 
 const showFeedback = (isCorrect) => {
@@ -68,7 +110,7 @@ const updateStats = () => {
 const generateColor = () => {
     // Shuffle positions
     const positions = shuffleArray([0, 1, 2]);
-    const correctColor = generateRandomColor();
+    const correctColor = getColorForQuestion(gameState.totalQuestions);
     gameState.correctIndex = positions[2];
 
     // Reset current feedback
@@ -99,6 +141,9 @@ const handleColorClick = function() {
     } else {
         gameState.wrong++;
     }
+
+    // Increment total questions for difficulty progression
+    gameState.totalQuestions++;
 
     showFeedback(isCorrect);
     updateStats();
