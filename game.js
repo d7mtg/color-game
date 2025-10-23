@@ -89,21 +89,19 @@ const updateStats = () => {
     elements.rightcount.innerText = `Correct: ${right}`;
     elements.wrongcount.innerText = `Wrong: ${wrong}`;
     elements.totalcount.innerText = `Total: ${total}`;
-    elements.score.innerText = `Score: ${scorePercentage}%`;
+    elements.score.innerText = `${scorePercentage}%`;
 
     // Update stat card styles
-    const statCards = document.querySelectorAll('.stat-card');
+    const scoreCard = elements.score;
 
-    statCards.forEach(card => {
-        card.classList.remove('success', 'error', 'neutral');
-    });
+    scoreCard.classList.remove('success', 'error', 'neutral');
 
     if (right > wrong) {
-        statCards.forEach(card => card.classList.add('success'));
+        scoreCard.classList.add('success');
     } else if (wrong > right) {
-        statCards.forEach(card => card.classList.add('error'));
+        scoreCard.classList.add('error');
     } else {
-        statCards.forEach(card => card.classList.add('neutral'));
+        scoreCard.classList.add('neutral');
     }
 };
 
