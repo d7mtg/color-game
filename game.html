@@ -14,7 +14,7 @@
 </head>
 <body>
     <main>
-        <div id="version">v2.0</div>
+        <div id="version">v2.1</div>
         <h1>Match the Hex Code to the Color!</h1>
 
         <div id="colorCode">#FFFFFF</div>
@@ -28,11 +28,14 @@
         <div id="current"></div>
 
         <div class="stats-container">
-            <div class="stat-card" id="score">0%</div>
+            <div class="score-header">
+                <div class="score-label">Accuracy</div>
+                <div id="score" class="score-value">0%</div>
+            </div>
             <div id="scorediv">
-                <div class="stat-card" id="totalcount">Total: 0</div>
-                <div class="stat-card" id="rightcount">Correct: 0</div>
-                <div class="stat-card" id="wrongcount">Wrong: 0</div>
+                <div class="stat-pill" id="totalcount"><span class="stat-number">0</span><span class="stat-label">Total</span></div>
+                <div class="stat-pill" id="rightcount"><span class="stat-number">0</span><span class="stat-label">Correct</span></div>
+                <div class="stat-pill" id="wrongcount"><span class="stat-number">0</span><span class="stat-label">Wrong</span></div>
             </div>
         </div>
     </main>

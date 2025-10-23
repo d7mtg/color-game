@@ -86,12 +86,13 @@ const updateStats = () => {
     const total = right + wrong;
     const scorePercentage = total > 0 ? Math.trunc((right / total) * 100) : 0;
 
-    elements.rightcount.innerText = `Correct: ${right}`;
-    elements.wrongcount.innerText = `Wrong: ${wrong}`;
-    elements.totalcount.innerText = `Total: ${total}`;
+    // Update the stat pills with new structure
+    elements.totalcount.querySelector('.stat-number').innerText = total;
+    elements.rightcount.querySelector('.stat-number').innerText = right;
+    elements.wrongcount.querySelector('.stat-number').innerText = wrong;
     elements.score.innerText = `${scorePercentage}%`;
 
-    // Update stat card styles
+    // Update score color
     const scoreCard = elements.score;
 
     scoreCard.classList.remove('success', 'error', 'neutral');
