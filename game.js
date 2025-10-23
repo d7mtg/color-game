@@ -44,13 +44,12 @@ const updateStats = () => {
     const total = right + wrong;
     const scorePercentage = total > 0 ? Math.trunc((right / total) * 100) : 0;
 
-    elements.rightcount.innerText = right;
-    elements.wrongcount.innerText = wrong;
-    elements.totalcount.innerText = total;
-    elements.score.innerText = `${scorePercentage}%`;
+    elements.rightcount.innerText = `Correct: ${right}`;
+    elements.wrongcount.innerText = `Wrong: ${wrong}`;
+    elements.totalcount.innerText = `Total: ${total}`;
+    elements.score.innerText = `Score: ${scorePercentage}%`;
 
     // Update stat card styles
-    const scoreCard = document.getElementById('score').parentElement;
     const statCards = document.querySelectorAll('.stat-card');
 
     statCards.forEach(card => {

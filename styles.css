@@ -88,6 +88,13 @@ h1 {
     border: 3px solid rgba(255, 255, 255, 0.1);
     position: relative;
     overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 3rem;
+    font-weight: 700;
+    color: white;
+    text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
 }
 
 .colorbox::before {
@@ -159,6 +166,10 @@ h1 {
     min-width: 150px;
     box-shadow: var(--shadow-lg);
     transition: all 0.3s ease;
+    color: var(--text-primary);
+    font-size: 1.25rem;
+    font-weight: 600;
+    text-align: center;
 }
 
 .stat-card:hover {
@@ -179,21 +190,6 @@ h1 {
 .stat-card.neutral {
     background: linear-gradient(135deg, rgba(99, 102, 241, 0.2) 0%, rgba(99, 102, 241, 0.05) 100%);
     border-color: rgba(99, 102, 241, 0.3);
-}
-
-.stat-label {
-    font-size: 0.875rem;
-    color: var(--text-secondary);
-    margin-bottom: 0.5rem;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    font-weight: 600;
-}
-
-.stat-value {
-    font-size: 1.75rem;
-    color: var(--text-primary);
-    font-weight: 700;
 }
 
 #scorediv {
