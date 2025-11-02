@@ -86,23 +86,19 @@ const updateStats = () => {
     const total = right + wrong;
     const scorePercentage = total > 0 ? Math.trunc((right / total) * 100) : 0;
 
-    // Update the stat pills with new structure
-    elements.totalcount.querySelector('.stat-number').innerText = total;
-    elements.rightcount.querySelector('.stat-number').innerText = right;
-    elements.wrongcount.querySelector('.stat-number').innerText = wrong;
+    elements.totalcount.innerText = `${total} total`;
+    elements.rightcount.innerText = `${right} right`;
+    elements.wrongcount.innerText = `${wrong} wrong`;
     elements.score.innerText = `${scorePercentage}%`;
 
-    // Update score color
-    const scoreCard = elements.score;
-
-    scoreCard.classList.remove('success', 'error', 'neutral');
+    elements.score.classList.remove('success', 'error', 'neutral');
 
     if (right > wrong) {
-        scoreCard.classList.add('success');
+        elements.score.classList.add('success');
     } else if (wrong > right) {
-        scoreCard.classList.add('error');
+        elements.score.classList.add('error');
     } else {
-        scoreCard.classList.add('neutral');
+        elements.score.classList.add('neutral');
     }
 };
 

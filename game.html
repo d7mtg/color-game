@@ -3,44 +3,34 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="theme-color" content="#F5F5F7">
-    <meta name="description" content="A modern color guessing game - match hex codes to colors!">
-
+    <meta name="theme-color" content="#F2F2F7">
     <title>Color Game</title>
-
-    <!-- Styles -->
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <main>
-        <div id="version">v2.1</div>
-        <h1>Match the Hex Code to the Color!</h1>
+    <div id="version">v2.2</div>
 
-        <div id="colorCode">#FFFFFF</div>
+    <h1>Color Game</h1>
 
-        <div id="colorsdiv">
-            <div class="colorbox">1</div>
-            <div class="colorbox">2</div>
-            <div class="colorbox">3</div>
+    <div id="colorCode">#FFFFFF</div>
+
+    <div id="colorsdiv">
+        <div class="colorbox">1</div>
+        <div class="colorbox">2</div>
+        <div class="colorbox">3</div>
+    </div>
+
+    <div id="current"></div>
+
+    <div class="stats">
+        <div id="score">0%</div>
+        <div class="stats-row">
+            <span id="totalcount">0 total</span>
+            <span id="rightcount">0 right</span>
+            <span id="wrongcount">0 wrong</span>
         </div>
+    </div>
 
-        <div id="current"></div>
-
-        <div class="stats-container">
-            <div class="score-header">
-                <div class="score-label">Accuracy</div>
-                <div id="score" class="score-value">0%</div>
-            </div>
-            <div id="scorediv">
-                <div class="stat-pill" id="totalcount"><span class="stat-number">0</span><span class="stat-label">Total</span></div>
-                <div class="stat-pill" id="rightcount"><span class="stat-number">0</span><span class="stat-label">Correct</span></div>
-                <div class="stat-pill" id="wrongcount"><span class="stat-number">0</span><span class="stat-label">Wrong</span></div>
-            </div>
-        </div>
-    </main>
-
-    <!-- Scripts -->
     <script src="game.js"></script>
 </body>
 </html>
